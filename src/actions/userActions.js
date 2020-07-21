@@ -12,7 +12,7 @@ import {
 export const getUsers = () => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch('/users');
+    const res = await fetch('https://jsonplaceholder.typicode.com/users');
     const data = await res.json();
     dispatch({
       type: GET_USERS,
@@ -30,7 +30,7 @@ export const addUser = (user) => async (dispatch) => {
   try {
     setLoading();
 
-    const res = await fetch('/users', {
+    const res = await fetch('https://jsonplaceholder.typicode.com/users', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -55,13 +55,16 @@ export const updateUser = (user) => async (dispatch) => {
   try {
     setLoading();
 
-    const res = await fetch(`/users/${user.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/users/${user.id}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(user),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
     const data = await res.json();
 
     dispatch({
@@ -79,7 +82,7 @@ export const updateUser = (user) => async (dispatch) => {
 export const deleteUser = (id) => async (dispatch) => {
   try {
     setLoading();
-    await fetch(`/users/${id}`, {
+    await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
       method: 'DELETE',
     });
 
