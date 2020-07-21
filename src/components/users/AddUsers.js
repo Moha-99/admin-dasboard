@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../../actions/userActions';
-import classnames from 'classnames';
+import { toast } from 'react-toastify';
 
-const AddUsers = ({ addUser }) => {
+const AddUsers = ({ addUser, ...props }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [errors, setErrors] = useState({});
 
   const onSubmit = () => {
-    if (username === '') {
-      setErrors({ errors: { username: 'username is required' } });
+    if (username === '' || email === '') {
+      toast.error('Please fill in all fields');
       return;
+    } else {
+      const newUser = { username, email };
+      addUser(newUser);
+      props.history.push('/');
+      toast.success('You added a new user');
     }
-
-    if (email === '') {
-      setErrors({ errors: { email: 'email is required' } });
-      return;
-    }
-    const newUser = { username, email };
-    addUser(newUser);
   };
 
   return (
@@ -39,13 +36,9 @@ const AddUsers = ({ addUser }) => {
                     name="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className={classnames('form-control', {
-                      'is-invalid': errors.username,
-                    })}
+                    className="form-control"
+                    required
                   />
-                  {errors.username && (
-                    <div className="invalid-feedback">{errors.username}</div>
-                  )}
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">Email address</label>
@@ -54,13 +47,9 @@ const AddUsers = ({ addUser }) => {
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={classnames('form-control', {
-                      'is-invalid': errors.email,
-                    })}
+                    className="form-control"
+                    required
                   />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
                 </div>
                 <button type="submit" className="btn btn-dark">
                   Submit

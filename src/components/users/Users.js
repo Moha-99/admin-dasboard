@@ -18,35 +18,39 @@ const Users = ({ user: { users, loading }, getUsers }) => {
   return (
     <div>
       <div className="container">
-        <div className="card">
-          <div className="card-header">
-            <div className="row">
-              <div className="col-md-10">
-                <h3>Users</h3>
+        <div className="row">
+          <div className="col">
+            <div className="card">
+              <div className="card-header">
+                <div className="row">
+                  <div className="col-md-10">
+                    <h3>Users</h3>
+                  </div>
+                  <div className="col-md-2">
+                    <Link to="/user/add" className="btn btn-info">
+                      Add User
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <div className="col-md-2">
-                <Link to="/user/add" className="btn btn-info">
-                  Add User
-                </Link>
+              <div className="card-body">
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+
+                  {!loading && users.length === 0 ? (
+                    <th className="text-center">No users to show</th>
+                  ) : (
+                    users.map((user) => <UserItem user={user} key={user.id} />)
+                  )}
+                </table>
               </div>
             </div>
-          </div>
-          <div className="card-body">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th></th>
-                </tr>
-              </thead>
-
-              {!loading && users.length === 0 ? (
-                <p className="text-center">No users to show</p>
-              ) : (
-                users.map((user) => <UserItem user={user} key={user.id} />)
-              )}
-            </table>
           </div>
         </div>
       </div>
