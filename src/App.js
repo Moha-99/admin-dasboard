@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Users from './components/users/Users';
 import Header from './components/layout/Header';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AddUsers from './components/users/AddUsers';
 import EditUsers from './components/users/EditUsers';
 import store from './store';
@@ -13,7 +13,7 @@ import './App.css';
 function App() {
   return (
     <Provider store={store}>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <Switch>
           <Fragment>
             <Header />
